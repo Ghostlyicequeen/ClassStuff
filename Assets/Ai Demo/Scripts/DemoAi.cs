@@ -8,7 +8,7 @@ public class DemoAi : MonoBehaviour
 {
     // AI 
     NavMeshAgent agent = null;
-    //GameObject TargetPoint = null;
+    GameObject TargetPoint = null;
 
 
     // RayCast
@@ -21,11 +21,13 @@ public class DemoAi : MonoBehaviour
     void Start()
     {
         // Generate a game object (target point) for agent to follow 
-        /* agent = GetComponent<NavMeshAgent>();
-         TargetPoint = new GameObject("TargetPoint");
-         hitTarget = TargetPoint;*/
+        agent = GetComponent<NavMeshAgent>();
+        TargetPoint = new GameObject("TargetPoint");
+        TargetPoint.transform.position = new Vector3(Random.Range(-24f, 24f), 0.5833333f, Random.Range(-24f, 24f));
+       
+        hitTarget = TargetPoint;
 
-       // SpawnTargetPoint();
+        
     }
 
     // Update is called once per frame
@@ -34,19 +36,25 @@ public class DemoAi : MonoBehaviour
         // Vector3 direction = new Vector3(Mathf.Sin(Time.time),0, 1);
         // agent.Move(direction * Time.deltaTime * 5);
 
-       
+
+        SpawnNewTargetPoint();
 
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.forward * dist, Color.red);
-        if (Physics.Raycast(transform.position,transform.forward,out hit, dist, mask))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, dist, mask))
         {
             hitTarget = hit.transform.gameObject;
         }
+       
         agent.SetDestination(hitTarget.transform.position);
+    
     }
-
-     void SpawnTargetPoint()
+    //Spawns new target point when agent reaches it
+    void SpawnNewTargetPoint()
     {
-        
+        if(agent.transform.position == TargetPoint.transform.position)
+        {
+            TargetPoint.transform.position = new Vector3(Random.Range(-24f, 24f), 0.5833333f, Random.Range(-24f, 24f));
+        }
     }
 }
