@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class DemoAi : MonoBehaviour
 {
     // AI 
     NavMeshAgent agent = null;
-    GameObject TargetPoint = null;
+    //GameObject TargetPoint = null;
+
 
     // RayCast
     public LayerMask mask = 0;
@@ -18,9 +20,12 @@ public class DemoAi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        TargetPoint = new GameObject("TargetPoint");
-        hitTarget = TargetPoint;
+        // Generate a game object (target point) for agent to follow 
+        /* agent = GetComponent<NavMeshAgent>();
+         TargetPoint = new GameObject("TargetPoint");
+         hitTarget = TargetPoint;*/
+
+       // SpawnTargetPoint();
     }
 
     // Update is called once per frame
@@ -38,5 +43,10 @@ public class DemoAi : MonoBehaviour
             hitTarget = hit.transform.gameObject;
         }
         agent.SetDestination(hitTarget.transform.position);
+    }
+
+     void SpawnTargetPoint()
+    {
+        
     }
 }
