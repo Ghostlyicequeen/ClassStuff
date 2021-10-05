@@ -23,7 +23,7 @@ public class PlayerDemo : MonoBehaviour
             if(Physics.Raycast(Vector3.zero, transform.forward, out hit, 10, mask))
             {
                 Debug.Log(hit.transform.name);
-                Cube (transform.forward * 5); 
+                 
             }
         }
     }
